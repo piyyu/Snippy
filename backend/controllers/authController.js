@@ -45,7 +45,7 @@ const signin = async (req, res) => {
     })
 
     if(!response) {
-        res.json({msg: "user not found"});
+        res.status(404).json({msg: "user not found"});
         return;
     }
 
@@ -53,9 +53,9 @@ const signin = async (req, res) => {
     if(passwordMatch) {
         const token = jwt.sign({id: response._id.toString()}, JWT_SECRET);
 
-        res.json({msg: "user logged in successfully", token: token})
+        res.status(200).json({msg: "user logged in successfully", token: token, name: response.name})
     } else {
-        res.json({
+        res.status(401).json({
             msg: "wrong credentials"
         })
     }
