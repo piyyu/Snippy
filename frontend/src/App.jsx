@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
 import Auth from './pages/auth/Auth';
-// import Notes from './pages/Notes/Notes';
 import ProtectedRoute from './components/ProtectedRoute';
 
 const App = () => {
