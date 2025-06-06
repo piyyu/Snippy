@@ -9,7 +9,7 @@ const signup = async (req, res) => {
     try {
         const existingUser = await UserModel.findOne({ email });
         if (existingUser) {
-            return res.json({ msg: "user already exist" });
+            return res.status(400).json({ msg: "user already exist" });
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -22,7 +22,7 @@ const signup = async (req, res) => {
 
         const token = jwt.sign({ id: newUser._id }, JWT_SECRET, { expiresIn: "7d" });
 
-        res.json({
+        res.status(201).json({
             msg: "user created successfully",
             user: {
                 id: newUser._id,

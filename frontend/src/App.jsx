@@ -1,18 +1,25 @@
-import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Auth from './Pages/Auth';
-import Home from './Pages/Home';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import Dashboard from './pages/Dashboard';
+import Auth from './pages/auth/Auth';
+// import Notes from './pages/Notes/Notes';
+import ProtectedRoute from './components/ProtectedRoute';
 
-function App() {
-
+const App = () => {
   return (
-    <BrowserRouter>
+    <Router>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/auth" element={<Auth />} />
+        <Route path="/dashboard" element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+          } />
+        {/* <Route path="/notes" element={<Notes />} /> */}
       </Routes>
-    </BrowserRouter>
-  )
-}
+    </Router>
+  );
+};
 
-export default App
+export default App;
