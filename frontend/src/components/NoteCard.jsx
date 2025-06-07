@@ -1,7 +1,10 @@
-const NoteCard = () => {
+const NoteCard = ({title, content, onClick}) => {
   return (
-    <div>
-      <div className="bg-red-400">hello world</div>
+    <div className="border p-4 rounded shadow" onClick={onClick} >
+      <div>{title}</div>
+      <div>{content}</div>
     </div>
   )
 }
+
+export default NoteCard;

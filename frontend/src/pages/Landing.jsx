@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-const Home = () => {
+const Landing = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen text-center">
       <h1 className="text-4xl font-bold mb-4">Welcome to Notes App</h1>
@@ -17,4 +17,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Landing;
