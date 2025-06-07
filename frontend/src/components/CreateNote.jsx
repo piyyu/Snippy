@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 
-const CreateNote = ({ onCreateNote }) => {
+const CreateNote = ({  }) => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
 
@@ -19,7 +19,6 @@ const CreateNote = ({ onCreateNote }) => {
       
       setTitle('');
       setContent('');
-      onCreateNote();
     } catch (error) {
       console.log("Failed to create note:", error.response?.data || error.message);
     }

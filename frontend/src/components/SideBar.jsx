@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import SidebarToggle from '../assets/icons/SidebarToggle';
 
-const SideBar =({sidebarOpen, setSidebarOpen, notes, openNewNote, setOpenNewNote}) => {
+const SideBar =({sidebarOpen, setSidebarOpen, notes, setOpenNewNote}) => {
     const navigate = useNavigate();
 
 
