@@ -25,7 +25,7 @@ const CreateNote = ({  }) => {
   };
 
   return <div className='w-full h-screen bg-gray-200 flex justify-center items-center p-10'>
-    <div className='w-2/3 h-screen grid grid-rows-12 gap-10 px-20 py-10'>
+    <div className='w-3/6 h-screen grid grid-rows-12 gap-10 px-20 py-10'>
       <div className='row-span-1 bg-red-300 rounded-lg p-1 px-3' onClick={handleCreateNote}>
       save
       </div>
@@ -45,5 +45,6 @@ const CreateNote = ({  }) => {
     </div>
   </div>
 }
+
 
 export default CreateNote;

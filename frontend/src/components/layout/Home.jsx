@@ -1,8 +1,12 @@
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import NoteCard from "../components/NoteCard";
+import NoteCard from "../note/NoteCard";
+import { useNote } from "../context/NoteContext";
 
-const Home = ({notes, setNotes}) => {
+const Home = () => {
+  const {notes, setNotes} = useNote();
+  const navigate = useNavigate();
 
   const handleGetNotes = async () => {
     try {
@@ -22,12 +26,12 @@ const Home = ({notes, setNotes}) => {
     handleGetNotes();
   }, []);
 
-  const handleClick =(val) => {
-    console.log(val)
-  }
+  const handleClick = (note) => {
+    navigate(`/dashboard/edit-note/${note._id}`);
+  };
 
   return (
-    <div className="flex flex-col justify-center items-center p-4">
+    <div className="flex flex-col justify-center items-center p-4 w-full">
       <h1 className="text-2xl font-bold">Notes App</h1>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         {notes.map((note) => (

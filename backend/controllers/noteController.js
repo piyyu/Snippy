@@ -40,7 +40,57 @@ const getUserNotes = async (req, res) => {
     }
 };
 
+const getNoteById = async (req, res) => {
+  const userId = req.user.id;
+  const noteId = req.params.id;
+
+  try {
+    const note = await NoteModel.findOne({ _id: noteId, user: userId });
+    if (!note) {
+      return res.status(404).json({ msg: "Note not found" });
+    }
+
+    res.status(200).json({ note });
+  } catch (err) {
+    res.status(500).json({
+      msg: "Error while fetching note",
+      error: err.message,
+    });
+  }
+};
+
+const updateNote = async (req, res) => {
+  const userId = req.user.id;
+  const noteId = req.params.id;
+  const { title, content } = req.body;
+
+  try {
+    const updatedNote = await NoteModel.findOneAndUpdate(
+      { _id: noteId, user: userId },
+      { title, content },
+      { new: true }
+    );
+
+    if (!updatedNote) {
+      return res.status(404).json({ msg: "Note not found or not authorized" });
+    }
+
+    res.status(200).json({
+      msg: "Note updated successfully",
+      note: updatedNote,
+    });
+  } catch (err) {
+    res.status(500).json({
+      msg: "Error updating note",
+      error: err.message,
+    });
+  }
+};
+
+
 module.exports = {
     createNote,
-    getUserNotes
+    getUserNotes,
+    getNoteById,
+    updateNote
 };

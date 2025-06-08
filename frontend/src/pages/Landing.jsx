@@ -9,7 +9,7 @@ const Landing = () => {
         <Link to="/auth">
           <button className="px-4 py-2 bg-blue-600 text-white rounded">Login / Signup</button>
         </Link>
-        <Link to="/notes">
+        <Link to="/dashboard">
           <button className="px-4 py-2 bg-green-600 text-white rounded">My Notes</button>
         </Link>
       </div>

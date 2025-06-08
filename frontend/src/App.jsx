@@ -2,7 +2,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Landing from './pages/Landing';
 import Dashboard from './pages/Dashboard';
 import Auth from './pages/auth/Auth';
-import ProtectedRoute from './components/ProtectedRoute';
+import ProtectedRoute from './components/layout/ProtectedRoute';
+import { NoteProvider } from './components/context/NoteContext';
 
 const App = () => {
   return (
@@ -10,9 +11,11 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/auth" element={<Auth />} />
-        <Route path="/dashboard" element={
+        <Route path="/dashboard/*" element={
           <ProtectedRoute>
-            <Dashboard />
+            <NoteProvider>
+              <Dashboard />
+            </NoteProvider>
           </ProtectedRoute>
           } />
       </Routes>
