@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
 import SidebarToggle from '../../assets/icons/SidebarToggle';
 import { useNote } from '../context/NoteContext';
 
@@ -12,7 +11,7 @@ const SideBar = () => {
       {/* Toggle Button */}
       <div className="fixed top-0 left-0 z-50">
         <div
-          className="cursor-pointer p-1 bg-white hover:bg-gray-300 transition-all duration-300 rounded-sm m-2"
+          className="cursor-pointer p-1 transition-all duration-300 rounded-sm m-2 text-7xl"
           onClick={() => setSidebarOpen(!sidebarOpen)}
         >
           <SidebarToggle />
