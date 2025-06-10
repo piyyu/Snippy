@@ -18,7 +18,7 @@ const Signin = ({ setUserExist }) => {
       );
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("user", response.data.name);
-      navigate("/dashboard");
+      navigate("/home");
     } catch (error) {
       console.log(error);
     }

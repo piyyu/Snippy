@@ -21,7 +21,7 @@ const Signup = ({ setUserExist }) => {
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("user", response.data.name);
       setUserExist(false);
-      navigate("/dashboard");
+      navigate("/home");
     } catch (error) {
       console.log(error);
     }

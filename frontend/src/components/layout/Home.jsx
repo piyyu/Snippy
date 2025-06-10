@@ -1,44 +1,27 @@
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
-import NoteCard from "../note/NoteCard";
-import { useNote } from "../context/NoteContext";
+import SideBar from './SideBar';
+import Dashboard from '../../pages/Dashboard';
+import AnimatedBg from '../common/AnimatedBg';
+import { Routes, Route } from 'react-router-dom';
+import CreateNote from '../note/CreateNote';
+import Notes from '../note/Notes';
+import Settings from '../setting/Settings';
 
 const Home = () => {
-  const {notes, setNotes} = useNote();
-  const navigate = useNavigate();
-
-  const handleGetNotes = async () => {
-    try {
-      const response = await axios.get("http://localhost:3000/api/notes", {
-        headers: {
-          token: localStorage.getItem("token"),
-        },
-      });
-      console.log(response.data.notes);
-      setNotes(response.data.notes);
-    } catch (error) {
-      console.log("Error fetching notes:", error);
-    }
-  };
-
-  useEffect(() => {
-    handleGetNotes();
-  }, []);
-
-  const handleClick = (note) => {
-    navigate(`/dashboard/edit-note/${note._id}`);
-  };
-
   return (
-    <div className="flex flex-col justify-center items-center p-4 w-full">
-      <h1 className="text-2xl font-bold">Notes App</h1>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {notes.map((note) => (
-          <NoteCard key={note._id} title={note.title} content={note.content} onClick={() =>handleClick(note)} />
-        ))}
+    <AnimatedBg>
+      <div className="flex flex-col sm:flex-row gap-4 h-screen w-screen p-2 sm:p-4 rounded-lg">
+        <SideBar />
+        {/* Added pt-16 on mobile to offset the fixed top bar height */}
+        <div className="flex-1 pt-16 sm:pt-0">
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="notes" element={<Notes />} />
+            <Route path="create" element={<CreateNote />} />
+            <Route path="settings/*" element={<Settings />} />
+          </Routes>
+        </div>
       </div>
-    </div>
+    </AnimatedBg>
   );
 };
 

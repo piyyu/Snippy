@@ -1,24 +1,38 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   darkMode: "selector",
+  safelist: [
+    "from-blue-400",
+    "via-purple-400",
+    "to-pink-400",
+    "from-gray-100",
+    "via-gray-400",
+    "to-gray-800",
+    "from-emerald-300",
+    "via-teal-400",
+    "to-cyan-500",
+    "from-rose-400",
+    "via-fuchsia-500",
+    "to-indigo-500",
+  ],
+
   theme: {
     extend: {
-      colors: {
-        'bgBlack': "#16191c",
-        'textWhite': "#b6b8bd",
-        'bgInput': "#23242c",
-        'buttonBlue': "#4c5cff",
+      animation: {
+        gradient: "gradient 20s ease-in-out infinite",
       },
-      fontFamily: {
-        poppins: ['Poppins', 'sans-serif']
-      }
+      keyframes: {
+        gradient: {
+          "0%, 100%": {
+            backgroundPosition: "0% 50%",
+          },
+          "50%": {
+            backgroundPosition: "100% 50%",
+          },
+        },
+      },
     },
   },
-  plugins: [
-    require('tailwind-scrollbar-hide')
-  ],
-}
+  plugins: [require("tailwind-scrollbar-hide")],
+};

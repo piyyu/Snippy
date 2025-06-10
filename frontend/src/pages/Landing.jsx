@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 const Landing = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen text-center">
+      <div>
+        
+      </div>
       <h1 className="text-4xl font-bold mb-4">Welcome to Notes App</h1>
       <p className="mb-6 text-gray-600">Sign in to manage your notes</p>
       <div className="space-x-4">
