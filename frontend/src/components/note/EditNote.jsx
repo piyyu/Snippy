@@ -1,72 +1,77 @@
-import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { getNoteById, updateNote } from "../../services/notesApi";
+import PencilIcon from "../../assets/icons/PencilIcon";
+import ReadingMode from "../../assets/icons/ReadingMode";
+import SaveIcon from "../../assets/icons/SaveIcon";
+import { motion } from "framer-motion";
 
 const EditNote = () => {
+  const [readMode, setReadMode] = useState(true);
   const { id } = useParams();
-  const [note, setNote] = useState({ title: '', content: '' });
-  const [loading, setLoading] = useState(true);
-
-  const fetchNote = async () => {
-    try {
-      const response = await axios.get(`http://localhost:3000/api/notes/${id}`, {
-        headers: {
-          token: localStorage.getItem('token'),
-        },
-      });
-      setNote(response.data.note);
-    } catch (error) {
-      console.error('Error fetching note:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const [note, setNote] = useState({ title: "", content: "" });
 
   useEffect(() => {
-    fetchNote();
+    const fetchedData = async () => {
+      const data = await getNoteById(id);
+      setNote(data.note);
+    };
+    fetchedData();
   }, [id]);
 
-  const handleUpdateNote = async () => {
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setNote((prevNote) => ({
+      ...prevNote,
+      [name]: value,
+    }));
+  };
+
+  const saveNote = async () => {
     try {
-      await axios.put(`http://localhost:3000/api/notes/${id}`, {
-        title: note.title,
-        content: note.content,
-      }, {
-        headers: {
-          token: localStorage.getItem('token'),
-        },
-      });
-      alert('Note updated successfully!');
+      const response = await updateNote(id, note.title, note.content);
+      console.log(response);
     } catch (error) {
-      console.error('Error updating note:', error);
+      console.log(error);
     }
   };
 
-  if (loading) return <div>Loading...</div>;
-  if (!note) return <div>Note not found</div>;
-
   return (
-    <div className='w-full h-screen bg-gray-200 flex justify-center items-center p-10'>
-      <div className='w-3/6 h-screen grid grid-rows-12 gap-10 px-20 py-10'>
-        <div className='row-span-1 bg-green-400 rounded-lg p-1 px-3 text-center cursor-pointer' onClick={handleUpdateNote}>
-          update
-        </div>
-
-        <input
-          value={note.title}
-          onChange={(e) => setNote({ ...note, title: e.target.value })}
-          placeholder="Edit Title"
-          className="row-span-1 p-2 text-base bg-transparent outline-none border border-transparent focus:border-gray-300 rounded-md whitespace-pre-wrap"
-        />
-
-        <textarea
-          value={note.content}
-          onChange={(e) => setNote({ ...note, content: e.target.value })}
-          placeholder="Edit Content"
-          className="row-span-10 p-2 text-base bg-transparent outline-none border border-transparent focus:border-gray-300 rounded-md"
-        ></textarea>
+    <motion.div
+      className="flex flex-col gap-4 h-full sm:w-full p-4 bg-black/50 backdrop-blur-md text-white rounded-3xl overflow-hidden scroll-smooth"
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.3 }}
+    >
+      <div className="flex justify-end gap-4 items-center">
+        <button className="py-2 sm:py-2 px-4 rounded-xl transition cursor-pointer bg-black/30 hover:bg-white hover:text-black trabsition-all duration-150"
+        onClick={saveNote}>Save</button>
+        <button className="py-2 sm:py-2 px-4 rounded-xl transition cursor-pointer bg-black/30 hover:bg-red-400 hover:text-black trabsition-all duration-150">Delete</button>
       </div>
-    </div>
+
+      {note.title && note.content && (
+        <>
+          <input
+            type="text"
+            name="title"
+            value={note.title}
+            onChange={handleChange}
+            // readOnly={readMode}
+            className="text-3xl sm:text-6xl font-bold px-5 sm:px-10 bg-transparent outline-none border-none"
+            placeholder="Enter Title"
+          />
+          <textarea
+            name="content"
+            value={note.content}
+            onChange={handleChange}
+            // readOnly={readMode}
+            className="flex-1 px-5 sm:px-10 bg-transparent outline-none border-none resize-none overflow-y-auto scrollbar-hide"
+            placeholder="Enter Content"
+          />
+        </>
+      )}
+    </motion.div>
   );
 };
 

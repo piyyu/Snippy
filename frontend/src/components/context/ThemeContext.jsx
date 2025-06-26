@@ -3,19 +3,18 @@ import { createContext, useContext, useState, useEffect } from "react";
 const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
-  const getInitialColors = () => {
-    const stored = localStorage.getItem("colors");
-    return stored ? stored.split(",") : ["blue-400", "purple-400", "pink-400"];
+  const getInitialTheme = () => {
+    return localStorage.getItem("theme") || "gradient-6";
   };
 
-  const [colors, setColors] = useState(getInitialColors);
+  const [theme, setTheme] = useState(getInitialTheme);
 
   useEffect(() => {
-    localStorage.setItem("colors", colors.join());
-  }, [colors]);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
 
   return (
-    <ThemeContext.Provider value={{ colors, setColors }}>
+    <ThemeContext.Provider value={{ theme, setTheme }}>
       {children}
     </ThemeContext.Provider>
   );

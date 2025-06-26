@@ -1,8 +1,10 @@
+import { useNavigate } from "react-router-dom";
 import UserIcon from "../assets/icons/UserIcon";
 import AddIcon from "../assets/icons/AddIcon";
 
 const Dashboard = () => {
   const currentDate = new Date();
+  const navigate = useNavigate();
 
   const monthNames = [
     "January",
@@ -33,10 +35,7 @@ const Dashboard = () => {
           </div>
         </div>
         <div>
-          <div>
-            
-          </div>
-          <div>
+          <div onClick={() => navigate("/home/create")}>
             <AddIcon />
           </div>
         </div>

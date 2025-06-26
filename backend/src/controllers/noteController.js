@@ -45,8 +45,9 @@ const getNoteById = async (req, res) => {
   const noteId = req.params.id;
 
   try {
-    const note = await NoteModel.findOne({ _id: noteId, user: userId });
-    if (!note) {
+    const note = await NoteModel.findById(noteId);
+    
+    if (!note || note.user.toString() !== userId) {
       return res.status(404).json({ msg: "Note not found" });
     }
 

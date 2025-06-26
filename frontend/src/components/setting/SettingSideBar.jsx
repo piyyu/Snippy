@@ -9,14 +9,14 @@ const SettingSideBar = () => {
     navigate("/auth");
   };
 
-  const baseStyle = "py-2 sm:py-3 p-4 rounded-xl transition cursor-pointer";
-  const activeStyle = "bg-white/30";
+  const baseStyle = "py-2 sm:py-2 px-4 rounded-xl transition cursor-pointer";
+  const activeStyle = "bg-black/30";
   const inactiveStyle = "hover:bg-white hover:text-black";
 
   return (
-    <div className="h-full flex flex-col gap-10 sm:p-10 p-5">
+    <div className="flex flex-col gap-10 sm:p-10 p-5 overflow-y-auto h-full">
       <div className="flex flex-col gap-2 border-2 border-white/20 p-3 sm:p-4 rounded-3xl">
-        <div className="text-sm">User Info</div>
+        <div className="text-sm py-2">User Info</div>
         <div className="flex flex-col gap-1 sm:gap-2 text-lg sm:text-2xl">
           <NavLink
             to="/home/settings"
@@ -55,7 +55,7 @@ const SettingSideBar = () => {
       </div>
 
       <div className="flex flex-col gap-2 border-2 border-white/20 p-3 sm:p-4 rounded-3xl">
-        <div className="text-sm">Appearance</div>
+        <div className="text-sm py-2">Appearance</div>
         <div className="flex flex-col gap-1 sm:gap-2 text-lg sm:text-2xl">
           <NavLink
             to="/home/settings/toggleTheme"
@@ -70,7 +70,7 @@ const SettingSideBar = () => {
 
       <div
         onClick={logout}
-        className="py-2 sm:py-4 hover:bg-white hover:text-black bg-black/50 border-2 border-white/20 rounded-2xl sm:rounded-3xl p-4 cursor-pointer transition text-lg sm:text-2xl"
+        className="py-2 sm:py-4 hover:bg-white hover:text-black bg-black/50 rounded-2xl sm:rounded-3xl p-4 cursor-pointer transition text-lg sm:text-2xl"
       >
         Logout
       </div>

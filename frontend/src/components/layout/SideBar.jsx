@@ -4,7 +4,7 @@ import NotesIcon from "../../assets/icons/NotesIcon";
 import NewNoteIcon from "../../assets/icons/NewNoteIcon";
 import SettingIcon from "../../assets/icons/SettingIcon";
 import UserIcon from "../../assets/icons/UserIcon";
-import logo from "../../assets/logo/logo1.png";
+// import logo from "../../assets/logo/logo1.png";
 
 const SideBar = () => {
   const baseClass = "rounded-full cursor-pointer";

@@ -1,59 +1,71 @@
 import { useTheme } from "../context/ThemeContext";
 
-const gradientThemes = {
-  Theme1: ["blue-400", "purple-400", "pink-400"],
-  Theme2: ["gray-100", "gray-400", "gray-800"],
-  Theme3: ["lime-300", "green-400", "emerald-500"],
-  Theme4: ["indigo-400", "sky-400", "cyan-300"],
-  Theme5: ["amber-300", "rose-400", "fuchsia-500"],
-  Theme6: ["yellow-300", "lime-400", "green-400"],
-  Theme7: ["rose-500", "pink-500", "orange-400"], 
-  Theme9: ["purple-400", "pink-400", "red-400"],
-  Theme10: ["fuchsia-500", "purple-500", "blue-500"],
+const solidThemes = {
+  "solid-1": { label: "cherry blossom pink", bg: "bg-cherry-blossom-pink" },
+  "solid-2": { label: "apicot", bg: "bg-apricot" },
+  "solid-3": { label: "lomon chiffon", bg: "bg-lemon-chiffon" },  
+  "solid-4": { label: "tea green", bg: "bg-tea-green" },
+  "solid-5": { label: "light blue", bg: "bg-light-blue" },
+  "solid-6": { label: "thistle", bg: "bg-thistle" },
+  "solid-7": { label: "bright pink", bg: "bg-bright-pink" },
+  "solid-8": { label: "xanthous", bg: "bg-xanthous" },
+  "solid-9": { label: "jasmine", bg: "bg-jasmine" },
+  "solid-10": { label: "light green", bg: "bg-light-green" },
+  "solid-11": { label: "maya blue", bg: "bg-maya-blue" },
+  "solid-12": { label: "lavender", bg: "bg-lavender" },
 };
 
+const gradientThemes = {
+  "gradient-1": { label: "Cyber Inferno", colors: ["from-pink-200", "via-purple-200", "to-blue-200"] },
+  "gradient-5": { label: "Midnight Aurora", colors: ["from-slate-900", "via-cyan-300", "to-violet-900"] },
+  "gradient-6": { label: "Nebula Pulse", colors: ["from-purple-900", "via-fuchsia-300", "to-blue-900"] },
+  "gradient-7": { label: "Cyber Prism", colors: ["from-gray-950", "via-indigo-400", "to-gray-950"] },
+  "gradient-9": { label: "Velvet Night", colors: ["from-gray-100", "via-purple-800", "to-indigo-500"] },
+  "gradient-10": { label: "Inferno", colors: ["from-black", "via-gray-800", "to-red-600"] },
+}
+
 const ToogleTheme = () => {
-  const { setColors, colors } = useTheme();
+  const { theme, setTheme } = useTheme();
+
+  const renderSolidThemes = () => (
+    <div className="flex flex-wrap gap-4">
+      {Object.entries(solidThemes).map(([id, { label, bg }]) => (
+        <div
+          key={id}
+          onClick={() => setTheme(id)}
+          className={`w-16 h-16 rounded-full cursor-pointer transition-all duration-300 ${bg} ${theme === id ? "scale-110" : ""}`}
+          title={label}
+        />
+      ))}
+    </div>
+  );
+
+  const renderGradientThemes = () => (
+    <div className="flex flex-wrap gap-4">
+      {Object.entries(gradientThemes).map(([id, { label, colors }]) => (
+        <div
+          key={id}
+          onClick={() => setTheme(id)}
+          className={`w-16 h-16 rounded-full cursor-pointer transition-all duration-300 bg-gradient-to-br ${colors.join(" ")} ${theme === id ? "scale-110" : ""}`}
+          title={label}
+        />
+      ))}
+    </div>
+  );
 
   return (
-    <div className="flex h-fit flex-col gap-4 border-2 border-white/20 p-4 rounded-3xl">
-      <div className="font-semibold text-white text-xl p-2">
-        Available Themes
+    <div className="flex flex-col gap-6 border-2 border-white/20 p-10 m-6 rounded-3xl bg-black/30">
+      <div className="text-white font-bold text-2xl">Choose Theme</div>
+
+      <div className="flex flex-col gap-4">
+        <div className="text-white text-lg font-semibold">Gradient Themes</div>
+        {renderGradientThemes()}
       </div>
 
-      {/* Preload Tailwind classes to avoid purging */}
-      <div className="hidden">
-        <div className="from-blue-500 via-indigo-500 to-purple-500" />
-        <div className="from-gray-200 via-gray-500 to-gray-800" />
-        <div className="from-lime-300 via-green-400 to-emerald-500" />
-        <div className="from-indigo-400 via-sky-400 to-cyan-300" />
-        <div className="from-amber-300 via-rose-400 to-fuchsia-500" />
-        <div className="from-yellow-300 via-lime-400 to-green-400" />
-        <div className="from-rose-500 via-pink-500 to-orange-400" />
-        <div className="from-cyan-400 via-teal-500 to-emerald-500" />
-        <div className="from-purple-400 via-pink-400 to-red-400" />
-        <div className="from-fuchsia-500 via-purple-500 to-blue-500" />
+      <div className="flex flex-col gap-4">
+        <div className="text-white text-lg font-semibold">Solid Colors</div>
+        {renderSolidThemes()}
       </div>
-    
-      {Object.entries(gradientThemes).map(([label, value]) => {
-        const [from, via, to] = value;
-        const gradientClass = `from-${from} via-${via} to-${to}`;
-        const isActive = value.join() === colors.join();
-
-        return (
-          <div
-            key={label}
-            onClick={() => setColors(value)}
-            className={`flex items-center gap-2 cursor-pointer border-2
-              ${isActive ? "border-white animate-gradient" : "border-white/20"}
-              bg-gradient-to-r ${gradientClass}
-              bg-[length:300%_300%] bg-[position:0%_50%]
-              p-3 sm:p-4 rounded-3xl transition-all duration-100`}
-          >
-            <span className="text-white">{label}</span>
-          </div>
-        );
-      })}
     </div>
   );
 };
